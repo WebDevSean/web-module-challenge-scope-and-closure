@@ -27,11 +27,17 @@ function processFirstItem(stringList, callback) {
  * Study the code for counter1 and counter2. Answer the questions below.
  * 
  * 1. What is the difference between counter1 and counter2?
+ * Counter 1 has a function nested inside of another function which allows
+ * the result to be saved. Each time the code is run, the result is incremented
+ * by 1.
  * 
  * 2. Which of the two uses a closure? How can you tell?
+ * The second function takes advantage of closure by accessing the count
+ * variable outside of the scope of it's function.
  * 
  * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
- *
+ *Counter 1 would be preferable if you wish to keep track of the data invoking
+ a function produces.
 */
 
 // counter1 code
@@ -57,10 +63,12 @@ function counter2() {
 Write a function called `inning` that returns a random number of points that a team scored in an inning. This should be a whole number between 0 and 2. */
 
 function inning(/*Code Here*/){
-
-    /*Code Here*/
+    let inningRoundScore = Math.round(Math.random() * 10);
+    return inningRoundScore;
 
 }
+
+console.log(inning())
 
 /* Task 3: finalScore()
 
@@ -76,11 +84,23 @@ finalScore(inning, 9) might return:
 
 */ 
 
-function finalScore(/*code Here*/){
+function finalScore(scoreEachRound_Function, totalInnings){
 
-  /*Code Here*/
+  let bothScores = {
+    "home": 0,
+    "away":0,
+  };
 
-}
+  for (i= 0; i < totalInnings ; i++) {
+    bothScores.home = bothScores.home + scoreEachRound_Function();
+    bothScores.away = bothScores.away + scoreEachRound_Function();
+
+  };
+  console.log(bothScores)
+
+};
+
+finalScore(inning, 9);
 
 /* Task 4: 
 
@@ -90,7 +110,7 @@ Create a function called `scoreboard` that accepts the following parameters:
 (2) Callback function `inning`
 (3) A number of innings
 
-and returns the score at each pont in the game, like so:
+and returns the score at each point in the game, like so:
 1st inning: awayTeam - homeTeam
 2nd inning: awayTeam - homeTeam
 3rd inning: awayTeam - homeTeam
@@ -103,8 +123,36 @@ and returns the score at each pont in the game, like so:
 Final Score: awayTeam - homeTeam */
 
 
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
-}
+function scoreBoard(scoreEachRound_Function, totalInnings) {
+  let bothScores = {
+    "home": 0,
+    "away":0,
+  };
+
+  for (i= 0; i < totalInnings ; i++) {
+
+    bothScores.home = bothScores.home + scoreEachRound_Function();
+    bothScores.away = bothScores.away + scoreEachRound_Function();
+
+    switch(i) {
+      case 0:
+        console.log(`${i+1}st inning: ${bothScores.home}-${bothScores.away}`);
+        break;
+        case 1: 
+        console.log(`${i+1}nd inning: ${bothScores.home}-${bothScores.away}`);
+        break;
+        case 2:
+        console.log(`${i+1}rd inning: ${bothScores.home}-${bothScores.away}`);
+        break;
+        default:
+        console.log(`${i+1}th inning: ${bothScores.home}-${bothScores.away}`);
+    };
+
+  };
+
+};
 
 
+
+
+  scoreBoard(inning, 9);
